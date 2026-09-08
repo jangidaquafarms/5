@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlueCrest - Shrimp Farm Management System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="app-body">
+
+  <div class="app-layout">
+
+    <!-- LEFT CLINICAL SIDEBAR -->
+    <aside class="app-sidebar" id="appSidebar">
+      
+      <div class="sidebar-brand">
+        <div class="brand-crest">
+          <div class="crest-text">
+            <h2>BlueCrest</h2>
+            <small>Bahadurkhed, Punjab</small>
+            <small class="crest-tagline">Smarter Ponds. Stronger Harvests.</small>
+          </div>
+        </div>
+
+        <div class="lab-org-badge">
+          <span>ELITE AQUALINES PVT. LTD.</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <button class="nav-sub-item" type="button">
+          <span class="sub-icon">📊</span>
+          <span class="nav-text">Dashboard</span>
+        </button>
+
+        <button class="nav-item" data-route="pond" type="button">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-text">Pond & Cycle Setup</span>
+        </button>
+
+        <div class="nav-group" id="feedGroup">
+          <button type="button" class="nav-group-header" aria-expanded="false">
+            <span class="nav-icon">🌾</span>
+            <span class="nav-text">Feed</span>
+            <span class="nav-caret">▾</span>
+          </button>
+          <div class="nav-submenu">
+            <button class="nav-sub-item" data-route="feed" type="button">
+              <span class="sub-icon">🌾</span>
+              <span>Feed Entry</span>
+            </button>
+            <button class="nav-sub-item" data-route="feedInventory" type="button">
+              <span class="sub-icon">📦</span>
+              <span>Feed Inventory</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. SAMPLING ACCORDION GROUP -->
+        <div class="nav-group" id="samplingGroup">
+          <button type="button" class="nav-group-header" aria-expanded="false">
+            <span class="nav-icon">🦐</span>
+            <span class="nav-text">Sampling</span>
+            <span class="nav-caret">▾</span>
+          </button>
+          <div class="nav-submenu">
+            <button class="nav-sub-item active" data-route="summary" type="button">
+              <span class="sub-icon">📊</span>
+              <span>Dashboard</span>
+            </button>
+            <button class="nav-sub-item" data-route="entry" type="button">
+              <span class="sub-icon">➕</span>
+              <span>Add Sampling</span>
+            </button>
+            <button class="nav-sub-item" data-route="history" type="button">
+              <span class="sub-icon">📋</span>
+              <span>Sampling History</span>
+            </button>
+            <button class="nav-sub-item" data-route="harvest" type="button">
+              <span class="sub-icon">🌾</span>
+              <span>Harvest Reconciliations</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. POND CARE ACCORDION GROUP -->
+        <div class="nav-group" id="treatmentGroup">
+          <button type="button" class="nav-group-header" aria-expanded="false">
+            <span class="nav-icon">🧪</span>
+            <span class="nav-text">Pond Care</span>
+            <span class="nav-caret">▾</span>
+          </button>
+          <div class="nav-submenu">
+            <button class="nav-sub-item" data-route="treatmentEntry" type="button">
+              <span class="sub-icon">💉</span>
+              <span>Record Treatment</span>
+            </button>
+            <button class="nav-sub-item" data-route="treatmentLog" type="button">
+              <span class="sub-icon">📑</span>
+              <span>Treatment Logs</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. LOGISTICS ACCORDION GROUP -->
+        <div class="nav-group" id="logisticsGroup">
+          <button type="button" class="nav-group-header" aria-expanded="false">
+            <span class="nav-icon">🚚</span>
+            <span class="nav-text">Logistics</span>
+            <span class="nav-caret">▾</span>
+          </button>
+          <div class="nav-submenu">
+            <button class="nav-sub-item" data-route="catalogue" type="button">
+              <span class="sub-icon">📦</span>
+              <span>Purchase & Inventory</span>
+            </button>
+            <button class="nav-sub-item" data-route="stockReturn" type="button">
+              <span class="sub-icon">↩️</span>
+              <span>Stock Return</span>
+            </button>
+            <button class="nav-sub-item" id="vendorStatementNavBtn" type="button">
+              <span class="sub-icon">📑</span>
+              <span>Vendor Statement &amp; Ledger</span>
+            </button>
+            <button class="nav-sub-item" id="vendorPaymentsNavBtn" type="button">
+              <span class="sub-icon">💳</span>
+              <span>Vendor Payments</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4. FINANCE ACCORDION GROUP -->
+        <div class="nav-group" id="financeGroup">
+          <button type="button" class="nav-group-header" aria-expanded="false">
+            <span class="nav-icon">💰</span>
+            <span class="nav-text">Finance</span>
+            <span class="nav-caret">▾</span>
+          </button>
+          <div class="nav-submenu">
+            <button class="nav-sub-item" data-route="finance" type="button">
+              <span class="sub-icon">📊</span>
+              <span>Financial Overview</span>
+            </button>
+            <button class="nav-sub-item" data-route="ledger" type="button">
+              <span class="sub-icon">📒</span>
+              <span>Ledger</span>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" class="btn-logout" id="logoutBtn">
+          <span class="logout-icon">⏻</span>
+          <span>Reset Session</span>
+        </button>
+        <span class="app-version">BlueCrest v2.8.0</span>
+      </div>
+    </aside>
+
+    <!-- MAIN RIGHT CONTAINER -->
+    <div class="main-wrapper">
+
+      <header class="top-nav">
+        <div class="top-nav-left">
+          <button class="icon-toggle-btn" id="sidebarToggle" type="button" title="Toggle Sidebar">☰</button>
+          <div class="current-screen-badge">
+            <span id="activeRouteLabel">Dashboard</span>
+          </div>
+        </div>
+
+        <div class="top-nav-right">
+          <button type="button" class="pill-btn status-green">
+            <span class="status-dot"></span> Cycle 2026 Active
+          </button>
+          <button type="button" class="pill-btn action-blue" onclick="navigateTo('entry')">
+            <span>+ New Sample</span>
+          </button>
+          <button type="button" class="pill-btn secondary-btn" id="exportButton">Export CSV</button>
+          <button type="button" class="pill-btn secondary-btn" id="importButton">Import Data</button>
+          <input type="file" id="importFileInput" accept=".json" style="display: none;">
+          <div class="user-avatar" title="Elite Aqualines Admin">BC</div>
+        </div>
+      </header>
+
+      <main class="content-canvas">
+
+        <!-- VIEW 1: DASHBOARD -->
+        <section id="summaryView" class="view active">
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-icon-wrapper bg-blue-tint"><span class="kpi-icon">📁</span></div>
+              <div class="kpi-data"><h3 id="pondCount">0</h3><p>Active Ponds</p></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon-wrapper bg-purple-tint"><span class="kpi-icon">📋</span></div>
+              <div class="kpi-data"><h3 id="sampleCount">0</h3><p>Total Samples</p></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon-wrapper bg-cyan-tint"><span class="kpi-icon">📊</span></div>
+              <div class="kpi-data"><h3 id="latestAbw">—</h3><p>Latest ABW (g)</p></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon-wrapper bg-green-tint"><span class="kpi-icon">💰</span></div>
+              <div class="kpi-data"><h3 id="invCurrentStockValue">₹0</h3><p>Stock Valuation</p></div>
+            </div>
+          </div>
+
+          <h2 class="sub-header-title">1. Pond Cycle Snapshots</h2>
+          <div id="pondSnapshots" class="pond-snapshots-grid" style="margin-bottom: 2rem;"></div>
+
+          <h2 class="sub-header-title">2. Cycle Analytics & Trends</h2>
+          <div class="charts-row" style="margin-bottom: 2rem;">
+            <div class="chart-panel">
+              <div class="chart-panel-header">
+                <h3>Growth Trend (ABW g)</h3>
+                <select id="chartPond" class="form-select-sm"></select>
+              </div>
+              <div class="chart-wrapper">
+                <svg id="growthChart" class="chart-svg" viewBox="0 0 640 280"></svg>
+                <div id="growthEmpty" class="empty-state" hidden><strong>No data recorded</strong></div>
+              </div>
+            </div>
+
+            <div class="chart-panel">
+              <div class="chart-panel-header">
+                <h3>Weekly Survival vs Final Harvest</h3>
+                <select id="survivalPond" class="form-select-sm"></select>
+              </div>
+              <div class="chart-wrapper">
+                <svg id="survivalChart" class="chart-svg" viewBox="0 0 640 280"></svg>
+                <div id="survivalEmpty" class="empty-state" hidden><strong>No data recorded</strong></div>
+              </div>
+              <div id="survivalAnalysisNote" class="chart-note-box"></div>
+            </div>
+          </div>
+
+          <div class="card-section">
+            <div class="card-section-header">
+              <div>
+                <h2>3. Recent Sampling Records</h2>
+                <small>Real-time pond biomass, growth metrics and health status</small>
+              </div>
+              <button class="small-pill-btn" onclick="navigateTo('entry')">+ Add Sampling</button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="clinical-table">
+                <thead>
+                  <tr>
+                    <th>S.L</th>
+                    <th>Case / Sample ID</th>
+                    <th>Pond & Hatchery</th>
+                    <th>Stocking Details</th>
+                    <th>Biomass Count</th>
+                    <th>Report Date</th>
+                    <th>Status</th>
+                    <th>FCR State</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="recentSamplesTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 2: POND SETUP -->
+        <section id="pondView" class="view">
+          <div class="form-box">
+            <h2 id="pondSaveLabel">Configure Pond Cycle</h2>
+            <form id="pondForm">
+              <input type="hidden" id="pondId">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="pondName">Pond Name *</label>
+                  <input type="text" id="pondName" placeholder="e.g. Pond 1" required>
+                </div>
+                <div class="form-group">
+                  <label for="hatcheryName">Hatchery Name</label>
+                  <input type="text" id="hatcheryName" placeholder="e.g. Ravi Hatcheries">
+                </div>
+                <div class="form-group">
+                  <label for="pondLength">Length (m)</label>
+                  <input type="number" id="pondLength" step="any" placeholder="70">
+                </div>
+                <div class="form-group">
+                  <label for="pondBreadth">Breadth (m)</label>
+                  <input type="number" id="pondBreadth" step="any" placeholder="42">
+                </div>
+                <div class="form-group">
+                  <label for="pondArea">Calculated Area (m²)</label>
+                  <input type="number" id="pondArea" readonly class="input-readonly">
+                </div>
+                <div class="form-group">
+                  <label for="stockingDate">Stocking Date</label>
+                  <input type="date" id="stockingDate">
+                </div>
+                <div class="form-group">
+                  <label for="stockingCount">Stocking Count (Pcs)</label>
+                  <input type="number" id="stockingCount" placeholder="125000">
+                </div>
+              </div>
+              <div class="form-actions-bar">
+                <button type="submit" class="pill-btn action-blue">Save Pond Profile</button>
+                <button type="button" id="cancelPondEdit" class="pill-btn secondary-btn" hidden>Cancel</button>
+              </div>
+              <p id="pondMessage" class="error-msg"></p>
+            </form>
+          </div>
+          <h2 class="sub-header-title" style="margin-top: 2rem;">Active Farm Ponds</h2>
+          <div id="pondList" class="records-stack"></div>
+        </section>
+
+        <!-- VIEW 3: ADD SAMPLE -->
+        <section id="entryView" class="view">
+          <div class="form-box">
+            <h2 id="saveLabel">Record Weekly Shrimp Sample</h2>
+            <form id="sampleForm">
+              <input type="hidden" id="sampleId">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="samplePond">Select Pond *</label>
+                  <select id="samplePond" required></select>
+                </div>
+                <div class="form-group">
+                  <label for="sampleDate">Sampling Date *</label>
+                  <input type="date" id="sampleDate" required>
+                </div>
+                <div class="form-group">
+                  <label for="testWeight">Sample Weight (Grams) *</label>
+                  <input type="number" id="testWeight" value="1000" step="any" required>
+                </div>
+                <div class="form-group">
+                  <label for="shrimpCount">Shrimp Count (Pcs) *</label>
+                  <input type="number" id="shrimpCount" placeholder="e.g. 53" step="any" required>
+                  <div class="stepper-actions">
+                    <button type="button" class="step-btn" data-step="-5">-5</button>
+                    <button type="button" class="step-btn" data-step="-1">-1</button>
+                    <button type="button" class="step-btn" data-step="1">+1</button>
+                    <button type="button" class="step-btn" data-step="5">+5</button>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="lastFeed">Previous Cumulative Feed (kg)</label>
+                  <input type="number" id="lastFeed" step="any" placeholder="0">
+                </div>
+                <div class="form-group">
+                  <label for="currentFeed">Current Cumulative Feed (kg)</label>
+                  <input type="number" id="currentFeed" step="any" placeholder="e.g. 2308">
+                </div>
+                <div class="form-group full-width">
+                  <label for="sampleNotes">Observation Notes</label>
+                  <textarea id="sampleNotes" rows="2" placeholder="Feed response, hepatopancreas color, molting..."></textarea>
+                </div>
+              </div>
+
+              <div class="preview-metrics-banner">
+                <div class="banner-stat"><span>ABW</span><strong id="previewAbw">—</strong></div>
+                <div class="banner-stat"><span>DOC</span><strong id="previewDoc">—</strong></div>
+                <div class="banner-stat"><span>Weekly Gain</span><strong id="previewGrowth">—</strong></div>
+                <div class="banner-stat"><span>Est. FCR</span><strong id="previewFcr">—</strong></div>
+                <div class="banner-stat"><span>Est. Survival</span><strong id="previewSurvival">—</strong></div>
+              </div>
+
+              <div class="form-actions-bar">
+                <button type="submit" class="pill-btn action-blue">Save Sample Record</button>
+                <button type="button" id="cancelEdit" class="pill-btn secondary-btn" hidden>Cancel</button>
+              </div>
+              <p id="formMessage" class="error-msg"></p>
+            </form>
+          </div>
+        </section>
+
+        <!-- VIEW 4: SAMPLING HISTORY -->
+        <section id="historyView" class="view">
+          <div class="filter-strip">
+            <select id="historyPond" class="form-select-sm"></select>
+            <input type="text" id="historySearch" placeholder="🔍 Search pond, date, or notes..." class="form-input-sm">
+            <select id="historySortOrder" class="form-select-sm">
+              <option value="desc">Date: Newest First</option>
+              <option value="asc">Date: Oldest First</option>
+            </select>
+          </div>
+          <div id="historySamples" class="records-stack"></div>
+        </section>
+
+        <!-- VIEW 5: HARVEST DATA -->
+        <section id="harvestView" class="view">
+          <div class="form-box">
+            <h2 id="harvestSaveLabel">Record Harvest Event</h2>
+            <form id="harvestForm">
+              <input type="hidden" id="harvestId">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="harvestPondSelect">Select Pond *</label>
+                  <select id="harvestPondSelect" required></select>
+                </div>
+                <div class="form-group">
+                  <label for="harvestDate">Harvest Date *</label>
+                  <input type="date" id="harvestDate" required>
+                </div>
+                <div class="form-group">
+                  <label for="harvestType">Type *</label>
+                  <select id="harvestType" required>
+                    <option value="Partial">Partial Harvest</option>
+                    <option value="Full">Full Final Harvest</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="harvestWeight">Harvest Biomass (kg) *</label>
+                  <input type="number" id="harvestWeight" step="any" placeholder="500" required>
+                </div>
+                <div class="form-group">
+                  <label for="harvestCount">Harvest Count (pcs/kg) *</label>
+                  <input type="number" id="harvestCount" step="any" placeholder="51" required>
+                </div>
+                <div class="form-group" id="harvestFeedGroup">
+                  <label for="harvestTotalFeed">Total Feed Consumed (kg)</label>
+                  <input type="number" id="harvestTotalFeed" step="any" placeholder="Required for Full Harvest">
+                </div>
+              </div>
+
+              <div class="preview-metrics-banner">
+                <div class="banner-stat"><span>Harvest ABW</span><strong id="previewHarvestAbw">—</strong></div>
+                <div class="banner-stat"><span>Total Shrimp Pieces</span><strong id="previewHarvestPieces">—</strong></div>
+              </div>
+
+              <div class="form-actions-bar">
+                <button type="submit" class="pill-btn action-blue">Save Harvest Log</button>
+                <button type="button" id="cancelHarvestEdit" class="pill-btn secondary-btn" hidden>Cancel</button>
+              </div>
+              <p id="harvestMessage" class="success-msg"></p>
+            </form>
+          </div>
+          <h2 class="sub-header-title" style="margin-top:2rem;">Harvest Logs & Reconciliations</h2>
+          <div id="harvestRecordsList"></div>
+        </section>
+
+        <!-- VIEW 6: TREATMENT LOGS -->
+        <section id="treatmentLogView" class="view">
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-icon-wrapper bg-blue-tint"><span class="kpi-icon">🧪</span></div>
+              <div class="kpi-data"><h3 id="treatmentCount">0</h3><p>Treatments</p></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon-wrapper bg-green-tint"><span class="kpi-icon">💳</span></div>
+              <div class="kpi-data"><h3 id="treatmentTotalCost">₹0</h3><p>Total Spend</p></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon-wrapper bg-cyan-tint"><span class="kpi-icon">🌱</span></div>
+              <div class="kpi-data"><h3 id="treatmentFertCost">₹0</h3><p>Fertilizers</p></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon-wrapper bg-purple-tint"><span class="kpi-icon">💊</span></div>
+              <div class="kpi-data"><h3 id="treatmentMedCost">₹0</h3><p>Medicines</p></div>
+            </div>
+          </div>
+
+          <div class="filter-strip">
+            <select id="treatmentPondFilter" class="form-select-sm"></select>
+            <select id="treatmentCatFilter" class="form-select-sm">
+              <option value="ALL">All Categories</option>
+              <option value="Fertilizer">Fertilizer</option>
+              <option value="Medicine">Medicine</option>
+              <option value="Feed">Feed</option>
+            </select>
+            <input type="text" id="treatmentSearch" placeholder="🔍 Search product or notes..." class="form-input-sm">
+            <select id="treatmentSortOrder" class="form-select-sm">
+              <option value="desc">Date: Newest First</option>
+              <option value="asc">Date: Oldest First</option>
+            </select>
+          </div>
+          <div id="treatmentRecordsList" class="records-stack"></div>
+        </section>
+
+        <!-- VIEW 7: RECORD TREATMENT -->
+        <section id="treatmentEntryView" class="view">
+          <div class="form-box">
+            <h2 id="treatmentSaveLabel">Record Pond Treatment</h2>
+            <form id="treatmentForm">
+              <input type="hidden" id="treatmentId">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="treatmentPondSelect">Select Pond *</label>
+                  <select id="treatmentPondSelect" required></select>
+                </div>
+                <div class="form-group">
+                  <label for="treatmentDate">Application Date *</label>
+                  <input type="date" id="treatmentDate" required>
+                </div>
+                <div class="form-group">
+                  <label for="treatmentCategoryFilter">Category Filter</label>
+                  <select id="treatmentCategoryFilter">
+                    <option value="ALL">All Products</option>
+                    <option value="Fertilizer">Fertilizers / Minerals</option>
+                    <option value="Medicine">Medicines / Probiotics</option>
+                    <option value="Feed">Feed</option>
+                  </select>
+                </div>
+                <div class="form-group autocomplete-container">
+                  <label for="treatmentProductName">Select Product *</label>
+                  <input type="text" id="treatmentProductName" placeholder="Type product name (e.g. pathrol, lime)..." autocomplete="off" required>
+                  <div id="treatmentProductSuggestions" class="autocomplete-dropdown" hidden></div>
+                </div>
+                <div class="form-group">
+                  <label for="treatmentTiming">Timing *</label>
+                  <select id="treatmentTiming" required>
+                    <option value="Morning">Morning</option>
+                    <option value="Afternoon">Afternoon</option>
+                    <option value="Evening">Evening</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="treatmentQty">Quantity *</label>
+                  <input type="number" id="treatmentQty" step="any" placeholder="e.g. 50" required>
+                </div>
+                <div class="form-group">
+                  <label for="treatmentUnit">Unit *</label>
+                  <select id="treatmentUnit" required>
+                    <option value="Kg">Kg</option>
+                    <option value="gms">gms</option>
+                    <option value="Ltr">Ltr</option>
+                    <option value="ml">ml</option>
+                    <option value="Bag/Pkt">Bag/Pkt</option>
+                  </select>
+                </div>
+                <div class="form-group full-width">
+                  <label for="treatmentNotes">Application Reason & Notes</label>
+                  <textarea id="treatmentNotes" rows="2" placeholder="Buffering, mineral balancing..."></textarea>
+                </div>
+              </div>
+
+              <div class="preview-metrics-banner">
+                <div class="banner-stat"><span>Unit Price</span><strong id="previewTreatmentRate">—</strong></div>
+                <div class="banner-stat"><span>Available Stock</span><strong id="previewTreatmentAvailableStock">—</strong></div>
+                <div class="banner-stat"><span>Treatment Cost</span><strong id="previewTreatmentCost">₹0</strong></div>
+              </div>
+
+              <div class="form-actions-bar">
+                <button type="submit" class="pill-btn action-blue">Save Treatment Record</button>
+                <button type="button" id="cancelTreatmentEdit" class="pill-btn secondary-btn" hidden>Cancel</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- VIEW 8: STOCK RETURN -->
+        <section id="stockReturnView" class="view">
+          <div class="form-box" style="max-width: 960px;">
+            <h2 id="stockReturnSaveLabel">Log Stock Return to Vendor</h2>
+            <form id="stockReturnForm">
+              <input type="hidden" id="returnId">
+              
+              <div class="invoice-header-grid sticky-invoice-header">
+                <div class="form-group">
+                  <label for="returnDate">Date of Return *</label>
+                  <input type="date" id="returnDate" required>
+                </div>
+                <div class="form-group">
+                  <label for="returnCrop">Crop Cycle *</label>
+                  <select id="returnCrop" required>
+                    <option value="Crop 1">Crop 1</option>
+                    <option value="Crop 2">Crop 2</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="returnInvoiceNo">Return Memo / Bill Ref</label>
+                  <input type="text" id="returnInvoiceNo" placeholder="e.g. RET-1021">
+                </div>
+                <div class="form-group autocomplete-container">
+                  <label for="returnSupplier">Supplier / Vendor *</label>
+                  <input type="text" id="returnSupplier" placeholder="e.g. Karan" autocomplete="off" required>
+                  <div id="returnSupplierSuggestions" class="autocomplete-dropdown" hidden></div>
+                </div>
+              </div>
+
+              <div class="invoice-items-container">
+                <div id="returnItemRowsContainer" class="invoice-rows-stack"></div>
+                <div style="margin-top: 1rem; text-align: left;">
+                  <button type="button" class="small-pill-btn" id="addReturnItemRowBtn">+ Add Item Row</button>
+                </div>
+              </div>
+
+              <div class="preview-metrics-banner" style="margin-top: 1.5rem;">
+                <div class="banner-stat"><span>Total Items</span><strong id="previewReturnCount">0</strong></div>
+                <div class="banner-stat"><span>Total Return Credit</span><strong id="previewReturnTotal" style="color:#c2410c;">₹0</strong></div>
+              </div>
+
+              <div class="form-actions-bar">
+                <button type="submit" class="pill-btn action-blue" style="flex:1;">Save Stock Return</button>
+                <button type="button" id="cancelReturnEdit" class="pill-btn secondary-btn" hidden>Cancel Edit</button>
+              </div>
+              <p id="returnMessage" class="success-msg"></p>
+            </form>
+          </div>
+
+          <h2 class="sub-header-title" style="margin-top: 2rem;">Stock Return History</h2>
+          <div id="stockReturnHistoryList" class="records-stack"></div>
+        </section>
+
+        <!-- VIEW 9: PURCHASES & INVENTORY -->
+        <section id="catalogueView" class="view">
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-icon-wrapper bg-blue-tint"><span class="kpi-icon">📦</span></div>
+              <div class="kpi-data"><h3 id="invDistinctCount">0</h3><p>Catalog Items</p></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon-wrapper bg-cyan-tint"><span class="kpi-icon">📥</span></div>
+              <div class="kpi-data"><h3 id="invTotalPurchasedValue">₹0</h3><p>Total Purchased</p></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon-wrapper bg-purple-tint"><span class="kpi-icon">📤</span></div>
+              <div class="kpi-data"><h3 id="invTotalUsedValue">₹0</h3><p>Applied in Ponds</p></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon-wrapper bg-green-tint"><span class="kpi-icon">💵</span></div>
+              <div class="kpi-data"><h3 id="invCurrentStockValueEl2">₹0</h3><p>Stock Balance</p></div>
+            </div>
+          </div>
+
+          <div class="form-box" style="max-width: 960px;">
+            <h2 id="purchaseSaveLabel">Log Multi-Item Purchase Invoice</h2>
+            <form id="purchaseForm">
+              <input type="hidden" id="purchaseId">
+              
+              <div class="invoice-header-grid sticky-invoice-header">
+                <div class="form-group">
+                  <label for="purchaseDate">Date of Purchase *</label>
+                  <input type="date" id="purchaseDate" required>
+                </div>
+                <div class="form-group">
+                  <label for="purchaseCrop">Crop Cycle *</label>
+                  <select id="purchaseCrop" required>
+                    <option value="Crop 1">Crop 1</option>
+                    <option value="Crop 2">Crop 2</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="invoiceNoInput">Invoice / Bill Number</label>
+                  <input type="text" id="invoiceNoInput" placeholder="e.g. 1012">
+                </div>
+                <div class="form-group autocomplete-container">
+                  <label for="prodSupplier">Supplier / Vendor *</label>
+                  <input type="text" id="prodSupplier" placeholder="e.g. Karan" autocomplete="off" required>
+                  <div id="prodSupplierSuggestions" class="autocomplete-dropdown" hidden></div>
+                </div>
+              </div>
+
+              <div class="invoice-items-container">
+                <div id="invoiceItemRowsContainer" class="invoice-rows-stack"></div>
+                <div style="margin-top: 1rem; text-align: left;">
+                  <button type="button" class="small-pill-btn" id="addItemRowBtn">+ Add Item Row</button>
+                </div>
+              </div>
+
+              <div class="preview-metrics-banner" style="margin-top: 1.5rem;">
+                <div class="banner-stat"><span>Total Items</span><strong id="previewInvoiceCount">0</strong></div>
+                <div class="banner-stat"><span>Invoice Total Amount</span><strong id="previewInvoiceTotal" style="color:#064e3b;">₹0</strong></div>
+              </div>
+
+              <div class="form-actions-bar">
+                <button type="submit" class="pill-btn action-blue" style="flex:1;">Save Entire Invoice</button>
+                <button type="button" id="cancelPurchaseEdit" class="pill-btn secondary-btn" hidden>Cancel Edit</button>
+              </div>
+              <p id="purchaseMessage" class="success-msg"></p>
+            </form>
+          </div>
+
+          <div class="filter-strip" style="margin-top: 2rem; justify-content: space-between;">
+            <div style="display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
+              <select id="invCategoryFilter" class="form-select-sm">
+                <option value="ALL">All Categories</option>
+                <option value="Fertilizer">Fertilizers</option>
+                <option value="Medicine">Medicines</option>
+                <option value="Feed">Feeds</option>
+                <option value="IN_STOCK">In Stock Only</option>
+                <option value="LOW">Low / Zero Stock</option>
+              </select>
+              <input type="text" id="invSearchInput" placeholder="🔍 Search product or vendor..." class="form-input-sm">
+            </div>
+            <div>
+            </div>
+          </div>
+
+          <div id="liveInventoryList" style="margin-bottom: 2rem;"></div>
+
+          <div id="purchaseHistorySectionHeader" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.75rem;">
+            <h2 class="sub-header-title" style="margin-bottom:0;">Historical Purchase Invoices</h2>
+            <select id="purchaseSortOrder" class="form-select-sm">
+              <option value="desc">Date: Newest First</option>
+              <option value="asc">Date: Oldest First</option>
+            </select>
+          </div>
+          <div id="purchaseHistoryList" class="records-stack"></div>
+        </section>
+
+        <!-- VIEW 10: FINANCIAL OVERVIEW -->
+        <section id="financeView" class="view">
+          <div class="finance-page-header">
+            <div>
+              <h2>Financial Overview</h2>
+              <p>Farm-wide purchases, vendor credits, and pending payables.</p>
+            </div>
+            <button type="button" class="small-pill-btn" onclick="navigateTo('ledger')">Open Ledger</button>
+          </div>
+
+          <div class="finance-dashboard-kpis">
+            <div class="finance-dashboard-card"><span>Total Purchase Debits</span><strong id="overviewPurchaseDebits">₹0</strong><small>Invoices from Purchase &amp; Inventory</small></div>
+            <div class="finance-dashboard-card"><span>Vendor Credits</span><strong id="overviewVendorCredits">₹0</strong><small>Payments, advances, and CNs</small></div>
+            <div class="finance-dashboard-card"><span>Rate Difference CN</span><strong id="overviewRateDiffCredits">₹0</strong><small>Credit notes recorded</small></div>
+            <div class="finance-dashboard-card finance-dashboard-card-highlight" style="cursor:pointer;" onclick="showPendingPayableDetails()"><span>Pending Payable</span><strong id="overviewPendingPayable">₹0</strong><small>Vendor debits less vendor credits (Click for details)</small></div>
+          </div>
+
+          <div class="finance-dashboard-grid">
+            <div class="card-section finance-dashboard-panel">
+              <div class="card-section-header"><div><h2>Vendor Payable Summary</h2><small>Vendor-level balance across all product categories.</small></div></div>
+              <div class="table-responsive"><table class="clinical-table finance-dashboard-table"><thead><tr><th>Vendor</th><th>Total Debit</th><th>Total Credit</th><th>Pending</th></tr></thead><tbody id="overviewVendorBody"></tbody></table></div>
+            </div>
+            <div class="card-section finance-dashboard-panel">
+              <div class="card-section-header"><div><h2>Monthly Cash Movement</h2><small>Purchases compared with vendor credits.</small></div></div>
+              <div id="overviewMonthlyChart" class="finance-monthly-chart"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 11: LEDGER -->
+        <section id="ledgerView" class="view">
+          <div class="finance-page-header">
+            <div>
+              <h2>Farm Ledger</h2>
+              <p>Record farm financial activity. Product purchases remain under Purchase &amp; Inventory.</p>
+            </div>
+            <span class="finance-readonly-badge">Finance record</span>
+          </div>
+
+          <div class="form-box ledger-entry-box">
+            <h2>New Ledger Entry</h2>
+            <form id="ledgerEntryForm">
+              <div class="ledger-entry-grid">
+                <div class="form-group"><label for="ledgerEntryDate">Date</label><input type="date" id="ledgerEntryDate" required></div>
+                <div class="form-group searchable-field"><label for="ledgerEntryCategory">Category</label><input type="text" id="ledgerEntryCategory" required placeholder="Search category..."><div id="ledgerCategorySuggestions" class="ledger-suggestions" hidden></div></div>
+                <div class="form-group searchable-field"><label for="ledgerEntrySubCategory">Sub-Category</label><input type="text" id="ledgerEntrySubCategory" placeholder="Search sub-category..."><div id="ledgerSubCategorySuggestions" class="ledger-suggestions" hidden></div></div>
+                <div class="form-group searchable-field"><label for="ledgerEntrySeason">Season</label><input type="text" id="ledgerEntrySeason" placeholder="Search season..."><div id="ledgerSeasonSuggestions" class="ledger-suggestions" hidden></div></div>
+                <div class="form-group"><label for="ledgerEntryBillStatus">Bill Status</label><select id="ledgerEntryBillStatus"><option>Paid</option><option>Pending</option><option>Partially Paid</option></select></div>
+                <div class="form-group"><label for="ledgerEntryQty">Qty</label><input type="number" id="ledgerEntryQty" min="0" step="any" value="1"></div>
+                <div class="form-group"><label for="ledgerEntryPrice">Price</label><input type="number" id="ledgerEntryPrice" min="0" step="any" required></div>
+                <div class="form-group"><label for="ledgerEntryAmount">Amount</label><input type="number" id="ledgerEntryAmount" readonly></div>
+                <div class="form-group searchable-field"><label for="ledgerEntryAccount">Account</label><input type="text" id="ledgerEntryAccount" placeholder="Search or add account..."><div id="ledgerAccountSuggestions" class="ledger-suggestions" hidden></div></div>
+                <div class="form-group ledger-note-field"><label for="ledgerEntryNote">Note</label><input type="text" id="ledgerEntryNote" placeholder="Additional details"></div>
+              </div>
+              <div class="form-actions-bar"><button type="submit" class="pill-btn action-blue">Save Ledger Entry</button><button type="reset" class="pill-btn secondary-btn">Clear</button></div>
+              <p id="ledgerEntryMessage" class="success-msg"></p>
+            </form>
+          </div>
+
+          <div class="card-section ledger-records-section">
+            <div class="card-section-header ledger-records-header">
+              <div><h2>Ledger Statement</h2><small>Saved entries grouped under the same ledger headings.</small></div>
+              <div id="ledgerSummaryStats" style="display:flex; gap:1rem; margin-top:0.5rem; font-size:0.8rem; font-weight:700; color:#475569;"></div>
+              <select id="ledgerEntrySort" class="form-select-sm">
+                <option value="desc">Date: Newest First</option>
+                <option value="asc">Date: Oldest First</option>
+              </select>
+            </div>
+            <div class="ledger-record-filters">
+              <select id="ledgerEntryCategoryFilter" class="form-select-sm"><option value="ALL">All Categories</option></select>
+              <select id="ledgerEntrySubCategoryFilter" class="form-select-sm"><option value="ALL">All Sub-Categories</option></select>
+              <select id="ledgerEntrySeasonFilter" class="form-select-sm"><option value="ALL">All Seasons</option><option value="Crop 1">Crop 1</option><option value="Crop 2">Crop 2</option><option value="Infra">Infra</option></select>
+              <select id="ledgerEntryStatusFilter" class="form-select-sm"><option value="ALL">All Bill Status</option><option>Paid</option><option>Pending</option><option>Partially Paid</option></select>
+              <input id="ledgerEntrySearch" class="form-input-sm" type="text" placeholder="Search account or note...">
+            </div>
+            <div class="table-responsive ledger-records-table-wrap">
+              <table class="clinical-table ledger-records-table">
+                <thead><tr><th>Date</th><th>Category</th><th>Sub-Category</th><th>Season</th><th>Bill Status</th><th>Qty</th><th>Price</th><th>Amount</th><th>Account</th><th>Note</th></tr></thead>
+                <tbody id="ledgerEntriesBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <dialog id="confirmDialog" class="clinical-modal">
+    <h3 id="dialogTitle">Delete Entry?</h3>
+    <p id="dialogText">This will permanently remove this item from your records.</p>
+    <form method="dialog" class="modal-actions">
+      <button value="cancel" class="pill-btn secondary-btn">Cancel</button>
+      <button value="confirm" class="pill-btn action-red">Confirm Delete</button>
+    </form>
+  </dialog>
+
+  <dialog id="vendorStatementDialog" class="vendor-statement-dialog">
+    <div class="statement-print-wrapper" id="statementPrintWrapper">
+      <div class="statement-brand-header">
+        <div>
+          <strong>BlueCrest</strong>
+          <span class="statement-brand-subtitle">Bahadurkhed, Punjab</span>
+          <span class="statement-brand-tagline">Smarter Ponds. Stronger Harvests.</span>
+        </div>
+        <span>Vendor Statement</span>
+      </div>
+      <div class="statement-controls-bar no-print">
+        <div style="display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap;">
+          <label style="font-weight:700; font-size:0.85rem;">Select Vendor:</label>
+          <select id="statementVendorSelect" class="form-select-sm" style="min-width:180px;"></select>
+          
+          <label style="font-weight:700; font-size:0.85rem; margin-left:0.5rem;">Crop:</label>
+          <select id="statementCropFilter" class="form-select-sm">
+            <option value="ALL">All Crops</option>
+            <option value="Crop 1">Crop 1</option>
+            <option value="Crop 2">Crop 2</option>
+          </select>
+
+          <select id="statementTypeFilter" class="form-select-sm">
+            <option value="ALL">Debit &amp; Credit</option>
+            <option value="Debit">Debit Only</option>
+            <option value="Credit">Credit Only</option>
+          </select>
+          <input id="statementRowSearch" class="form-input-sm" type="text" placeholder="Filter debit, credit, balance, remarks...">
+
+        </div>
+        <div style="display:flex; gap:0.5rem; align-items:center;">
+          <button type="button" class="pill-btn action-blue" id="printStatementBtn">🖨️ Print / Save PDF</button>
+          <button type="button" class="pill-btn secondary-btn" id="copyStatementBtn">📋 Copy WhatsApp Summary</button>
+          <button type="button" class="pill-btn action-red" id="closeStatementBtn">✕ Close</button>
+        </div>
+      </div>
+
+      <div class="statement-sheet-header">
+        <div class="statement-main-banner">
+          <h1 id="statementAccountTitle">KARAN ACCOUNT</h1>
+        </div>
+
+        <div class="statement-summary-grid">
+          <div class="summary-cell"><span class="cell-lbl">Crop 1 Total Purchases</span><strong class="cell-val" id="stmtCrop1Purchases">₹0</strong></div>
+          <div class="summary-cell"><span class="cell-lbl">Crop 2 Total Purchases</span><strong class="cell-val" id="stmtCrop2Purchases">₹0</strong></div>
+          <div class="summary-cell"><span class="cell-lbl">Crop 1 Balance</span><strong class="cell-val" id="stmtCrop1Balance">₹0</strong></div>
+          <div class="summary-cell"><span class="cell-lbl">Crop 2 Balance</span><strong class="cell-val" id="stmtCrop2Balance">₹0</strong></div>
+          <div class="summary-cell highlight-total"><span class="cell-lbl">Total Debit (Bills)</span><strong class="cell-val text-blue" id="stmtTotalDebit">₹0</strong></div>
+          <div class="summary-cell highlight-total"><span class="cell-lbl">Total Credit (Paid)</span><strong class="cell-val text-green" id="stmtTotalCredit">₹0</strong></div>
+          <div class="summary-cell highlight-total"><span class="cell-lbl">Closing Balance</span><strong class="cell-val text-orange" id="stmtClosingBalance">₹0</strong></div>
+        </div>
+      </div>
+
+      <div class="table-responsive statement-table-container">
+        <table class="statement-ledger-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;">Sr No.</th>
+              <th style="width: 80px;">Crop</th>
+              <th style="width: 120px;">Date</th>
+              <th style="width: 90px;">Bill Status</th>
+              <th style="width: 100px;">Bill Number</th>
+              <th style="width: 110px; text-align: right;">Debit</th>
+              <th style="width: 110px; text-align: right;">Credit</th>
+              <th style="width: 130px; text-align: right;">Closing Balance</th>
+              <th>Remarks</th>
+              <th class="no-print" style="width:60px; text-align:center;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="statementTableBody"></tbody>
+        </table>
+      </div>
+
+      <div id="quickAddPaymentBox" class="quick-payment-drawer no-print" hidden>
+        <h4 style="font-size:0.9rem; font-weight:800; margin-bottom:0.75rem; color:#0f172a;">Record Advance / Payment / Credit Note</h4>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap:0.65rem; align-items:end;">
+          <div class="form-group" style="margin:0;"><label>Date *</label><input type="date" id="advDate"></div>
+          <div class="form-group" style="margin:0;"><label>Crop *</label><select id="advCrop"><option value="Crop 1">Crop 1</option><option value="Crop 2">Crop 2</option></select></div>
+          <div class="form-group" style="margin:0;"><label>Type *</label><select id="advType"><option value="Credit">Credit (Advance / Payment)</option><option value="Credit">Rate diff CN</option></select></div>
+          <div class="form-group" style="margin:0;"><label>Bill No. (Optional)</label><input type="text" id="advBillNo" placeholder="e.g. 1021"></div>
+          <div class="form-group searchable-field" style="margin:0;"><label>Account</label><input type="text" id="advAccount" placeholder="Search or add account..."><div id="advAccountSuggestions" class="ledger-suggestions" hidden></div></div>
+          <div class="form-group" style="margin:0;"><label>Amount (₹) *</label><input type="number" id="advAmount" step="any" placeholder="e.g. 200000"></div>
+          <div class="form-group" style="margin:0;"><label>Remarks *</label><input type="text" id="advRemarks" placeholder="Advance, Feed Return, CN..."></div>
+          <div><button type="button" class="pill-btn action-blue" id="saveAdvancePaymentBtn" style="width:100%;">Save Entry</button></div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+  <dialog id="pendingPayableModal" class="clinical-modal" style="width: 500px;">
+    <h3>Pending Payables by Vendor</h3>
+    <div id="pendingPayableList" style="margin: 1rem 0; max-height: 400px; overflow-y: auto;"></div>
+    <form method="dialog" class="modal-actions">
+      <button class="pill-btn secondary-btn">Close</button>
+    </form>
+  </dialog>
+
+</body>
+
+</html>
